@@ -1,4 +1,10 @@
-from transformers import AutoTokenizer, PreTrainedTokenizer, PreTrainedTokenizerFast, PreTrainedModel, AutoModelForSeq2SeqLM
+from transformers import (
+    AutoModelForSeq2SeqLM,
+    AutoTokenizer,
+    PreTrainedModel,
+    PreTrainedTokenizer,
+    PreTrainedTokenizerFast,
+)
 
 from constants import MODEL_CHECKPOINT
 
@@ -12,8 +18,8 @@ def initialize_tokenizer() -> PreTrainedTokenizer | PreTrainedTokenizerFast:
 
     NOTE: You are free to change this. But make sure the tokenizer is the same as the model.
     """
-    tokenizer: PreTrainedTokenizer | PreTrainedTokenizerFast = AutoTokenizer.from_pretrained(
-        pretrained_model_name_or_path=MODEL_CHECKPOINT
+    tokenizer: PreTrainedTokenizer | PreTrainedTokenizerFast = (
+        AutoTokenizer.from_pretrained(pretrained_model_name_or_path=MODEL_CHECKPOINT)
     )
     return tokenizer
 

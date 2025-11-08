@@ -1,5 +1,6 @@
-import numpy as np
 import evaluate
+import numpy as np
+
 
 def postprocess_text(eval_preds, tokenizer):
     """
@@ -21,6 +22,7 @@ def postprocess_text(eval_preds, tokenizer):
     decoded_labels = [[label.strip()] for label in decoded_labels]
 
     return decoded_preds, decoded_labels
+
 
 def compute_metrics(eval_preds, tokenizer):
     """

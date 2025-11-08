@@ -19,7 +19,9 @@ def main():
 
     raw_datasets = build_dataset()
 
-    assert not_change_test_dataset(raw_datasets), "You should not change the test dataset"
+    assert not_change_test_dataset(raw_datasets), (
+        "You should not change the test dataset"
+    )
 
     # Load and preprocess datasets
     tokenized_datasets = preprocess_data(raw_datasets, tokenizer)

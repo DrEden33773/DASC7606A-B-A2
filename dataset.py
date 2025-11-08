@@ -1,4 +1,10 @@
-from datasets import Dataset, DatasetDict, IterableDataset, IterableDatasetDict, load_dataset
+from datasets import (
+    Dataset,
+    DatasetDict,
+    IterableDataset,
+    IterableDatasetDict,
+    load_dataset,
+)
 from transformers import DataCollatorForSeq2Seq
 
 from constants import MAX_INPUT_LENGTH, MAX_TARGET_LENGTH
@@ -22,11 +28,9 @@ def build_dataset() -> DatasetDict | Dataset | IterableDatasetDict | IterableDat
 
     # NOTE: You should not change the test dataset
     test_dataset = dataset["validation"]
-    return DatasetDict({
-        "train": train_dataset,
-        "validation": validation_dataset,
-        "test": test_dataset
-    })
+    return DatasetDict(
+        {"train": train_dataset, "validation": validation_dataset, "test": test_dataset}
+    )
 
 
 def create_data_collator(tokenizer, model):
@@ -43,7 +47,9 @@ def create_data_collator(tokenizer, model):
     return DataCollatorForSeq2Seq(tokenizer=tokenizer, model=model)
 
 
-def preprocess_function(examples, prefix, tokenizer, max_input_length, max_target_length):
+def preprocess_function(
+    examples, prefix, tokenizer, max_input_length, max_target_length
+):
     """
     Preprocess the data.
 
@@ -61,7 +67,9 @@ def preprocess_function(examples, prefix, tokenizer, max_input_length, max_targe
     targets = [ex["en"] for ex in examples["translation"]]
 
     model_inputs = tokenizer(inputs, max_length=max_input_length, truncation=True)
-    labels = tokenizer(text_target=targets, max_length=max_target_length, truncation=True)
+    labels = tokenizer(
+        text_target=targets, max_length=max_target_length, truncation=True
+    )
 
     model_inputs["labels"] = labels["input_ids"]
     return model_inputs
