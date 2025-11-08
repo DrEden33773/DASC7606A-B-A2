@@ -19,3 +19,13 @@ dependencies = [
     "transformers>=4.57.1",
     "trl>=0.24.0",
 ]
+
+[tool.uv.sources]
+torch = { index = "pytorch" }
+torchvision = { index = "pytorch" }
+
+[[tool.uv.index]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
