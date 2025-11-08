@@ -33,4 +33,6 @@ def compute_metrics(eval_preds, tokenizer):
     decoded_preds, decoded_labels = postprocess_text(eval_preds, tokenizer)
     metric = evaluate.load("sacrebleu")
     result = metric.compute(predictions=decoded_preds, references=decoded_labels)
+    if result is None:
+        raise ValueError("`metric.compute(...)` returned `None`")
     return {"bleu": result["score"]}

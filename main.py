@@ -1,3 +1,5 @@
+from datasets import DatasetDict
+
 from dataset import build_dataset, preprocess_data
 from model import initialize_model, initialize_tokenizer
 from trainer import build_trainer
@@ -19,6 +21,9 @@ def main():
 
     raw_datasets = build_dataset()
 
+    if not isinstance(raw_datasets, DatasetDict):
+        raise ValueError(f"{raw_datasets} is not a `DatasetDict`")
+
     assert not_change_test_dataset(raw_datasets), (
         "You should not change the test dataset"
     )
@@ -36,7 +41,7 @@ def main():
 
     # Evaluate the model on the test dataset
     test_metrics = trainer.evaluate(
-        eval_dataset=tokenized_datasets["test"],
+        eval_dataset=tokenized_datasets["test"],  # pyright: ignore[reportArgumentType]
         metric_key_prefix="test",
     )
     print("Test Metrics:", test_metrics)

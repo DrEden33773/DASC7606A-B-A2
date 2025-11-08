@@ -1,4 +1,10 @@
-from transformers import Trainer, TrainingArguments, DataCollatorForSeq2Seq, Seq2SeqTrainer, Seq2SeqTrainingArguments
+from transformers import (
+    DataCollatorForSeq2Seq,
+    Seq2SeqTrainer,
+    Seq2SeqTrainingArguments,
+    Trainer,
+    TrainingArguments,
+)
 
 from constants import OUTPUT_DIR
 from evaluation import compute_metrics
@@ -54,7 +60,10 @@ def create_data_collator(tokenizer, model):
 
     NOTE: You are free to change this. But make sure the data collator is the same as the model.
     """
-    return DataCollatorForSeq2Seq(tokenizer=tokenizer, model=model)
+    return DataCollatorForSeq2Seq(
+        tokenizer=tokenizer,
+        model=model,
+    )
 
 
 def build_trainer(model, tokenizer, tokenized_datasets) -> Trainer:
@@ -79,7 +88,7 @@ def build_trainer(model, tokenizer, tokenized_datasets) -> Trainer:
         args=training_args,
         train_dataset=tokenized_datasets["train"],
         eval_dataset=tokenized_datasets["validation"],
-        tokenizer=tokenizer,
+        # tokenizer=tokenizer,
         data_collator=data_collator,
         compute_metrics=lambda eval_preds: compute_metrics(eval_preds, tokenizer),
     )

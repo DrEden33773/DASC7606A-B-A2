@@ -23,6 +23,11 @@ def build_dataset() -> DatasetDict | Dataset | IterableDatasetDict | IterableDat
         raw_datasets["validation"] = load_dataset('wmt19', 'zh-en', split="validation")
     """
     dataset = load_dataset("wmt19", "zh-en")
+
+    # Check if the dataset is a `DatasetDict`
+    if not isinstance(dataset, DatasetDict):
+        raise ValueError(f"{dataset} is not a `DatasetDict`")
+
     train_dataset = dataset["train"].select(range(1300000))
     validation_dataset = dataset["train"].select(range(1300000, 1302000))
 
